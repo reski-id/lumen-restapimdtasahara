@@ -11,6 +11,8 @@
 |
 */
 
+$router->get('/','welcomeController@index');
+
 $router->get('/absen','AbsenController@index');
 $router->get('/absen/{id}','AbsenController@show');
 $router->post('/absen','AbsenController@store');
