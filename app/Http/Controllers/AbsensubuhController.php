@@ -28,6 +28,12 @@ class AbsensubuhController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request,[
+            'TglAbsensubuh' => 'date|required',
+            'nis' => 'required|integer',
+            'KetAbsensubuh' => 'string|required',
+        ]);
+
         $Absensubuh = new Absensubuh;
 
         $Absensubuh->TglAbsensubuh = $request->TglAbsensubuh;
@@ -71,6 +77,13 @@ class AbsensubuhController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        $this->validate($request,[
+            'TglAbsensubuh' => 'date',
+            'nis' => 'integer',
+            'KetAbsensubuh' => 'string',
+        ]);
+
         $Absensubuh = Absensubuh::find($id);
         if(!$Absensubuh){
             return response()->json([

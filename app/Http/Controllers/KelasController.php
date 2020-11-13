@@ -27,6 +27,11 @@ class KelasController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request,[
+            'kode_kelas' => 'required',
+            'nama_kelas' => 'required'
+        ]);
+
         $kelas = new Kelas;
 
         $kelas->kode_kelas = $request->kode_kelas;

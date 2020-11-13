@@ -27,6 +27,11 @@ class AbsenController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request,[
+            'TglAbsen' => 'date|required',
+            'nis' => 'required|integer',
+            'KetAbsen' => 'string|required',
+        ]);
         $absen = new Absen;
 
         $absen->TglAbsen = $request->TglAbsen;
@@ -69,6 +74,12 @@ class AbsenController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request,[
+            'TglAbsen' => 'date',
+            'nis' => 'integer',
+            'KetAbsen' => 'string',
+        ]);
+
         $absen = Absen::find($id);
         if(!$absen){
             return response()->json([

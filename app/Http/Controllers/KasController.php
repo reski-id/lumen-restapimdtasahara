@@ -27,6 +27,14 @@ class KasController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request,[
+            'keterangan' => 'required',
+            'tgl' => 'required',
+            'jumlah' => 'required|integer',
+            'jenis' => 'required'
+        ]);
+
+
         $kas = new Kas;
 
         $kas->keterangan = $request->keterangan;
