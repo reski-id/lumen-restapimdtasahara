@@ -15,7 +15,19 @@ class AbsenController extends Controller
     public function index()
     {
         $absen = Absen::all();
-        return response()->json($absen);
+        if ($absen) {
+            return response()->json([
+                'success'   => true,
+                'message'   => 'Absen Siswa',
+                'data'      => $absen
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Post Tidak Ditemukan!',
+            ], 404);
+        }
+        // return response()->json($absen);
     }
 
 
@@ -39,10 +51,19 @@ class AbsenController extends Controller
         $absen->KetAbsen = $request->KetAbsen;
 
         $absen->save();
-        return response()->json([
-            'Status' => 'Success',
-            'Message' => 'Data berhasil disimpan'
-        ],201);
+
+        if ($absen) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Post Berhasil disimpan!',
+                'data' => $absen
+            ], 201);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Post Gagal disimpan!',
+            ], 400);
+        }
     }
 
     /**
@@ -54,15 +75,19 @@ class AbsenController extends Controller
     public function show($id)
     {
         $absen = Absen::find($id);
-        if(!$absen){
+        
+        if ($absen) {
             return response()->json([
-                'Status' => 'Failed',
-                'Message' => 'Data tidak ditemukan'
-            ],404);
+                'success'   => true,
+                'message'   => 'Absen Siswa',
+                'data'      => $absen
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Post Tidak Ditemukan!',
+            ], 404);
         }
-
-        return response()->json($absen);
-
     }
 
     /**
@@ -82,10 +107,12 @@ class AbsenController extends Controller
 
         $absen = Absen::find($id);
         if(!$absen){
-            return response()->json([
-                'Status' => 'Failed',
-                'Message' => 'Data tidak ditemukan'
-            ],404);
+            if(!$absen){
+                return response()->json([
+                    'success' => false,
+                    'Message' => 'Data tidak ditemukan'
+                ],404);
+            }
         }
 
         $absen->TglAbsen = $request->TglAbsen;
@@ -111,17 +138,19 @@ class AbsenController extends Controller
         $absen = Absen::find($id);
         if(!$absen){
             return response()->json([
-                'Status' => 'Failed',
+                'success' => false,
                 'Message' => 'Data tidak ditemukan'
             ],404);
         }
 
         $absen->delete();
 
-        return response()->json([
-            'Status' => 'Success',
-            'Message' => 'Data berhasil dihapus'
-        ],201);
+        if ($absen) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Data Berhasil Dihapus!',
+            ], 200);
+        }
 
     }
 }
