@@ -15,7 +15,19 @@ class KalenderAkademikController extends Controller
     public function index()
     {
         $kalakademik = KalenderAkademik::all();
-        return response()->json($kalakademik);
+        
+        if ($kalakademik) {
+            return response()->json([
+                'success'   => true,
+                'message'   => 'Data Kalender Akademik',
+                'data'      => $kalakademik
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data Tidak Ditemukan!',
+            ], 404);
+        }
     }
 
 
@@ -41,9 +53,11 @@ class KalenderAkademikController extends Controller
         $kalakademik->acara = $request->acara;
 
         $kalakademik->save();
+        
         return response()->json([
-            'Status' => 'Success',
-            'Message' => 'Data berhasil disimpan'
+            'success'   => true,
+            'message'   => 'Data Guru',
+            'data'      => $kalakademik
         ],201);
     }
 
@@ -56,15 +70,19 @@ class KalenderAkademikController extends Controller
     public function show($id)
     {
         $kalakademik = KalenderAkademik::find($id);
-        if(!$kalakademik){
+
+       if ($kalakademik) {
             return response()->json([
-                'Status' => 'Failed',
-                'Message' => 'Data tidak ditemukan'
-            ],404);
+                'success'   => true,
+                'message'   => 'Data Kalender Akademik',
+                'data'      => $kalakademik
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data Tidak Ditemukan!',
+            ], 404);
         }
-
-        return response()->json($kalakademik);
-
     }
 
     /**
@@ -83,9 +101,10 @@ class KalenderAkademikController extends Controller
         ]);
 
         $kalakademik = KalenderAkademik::find($id);
+       
         if(!$kalakademik){
             return response()->json([
-                'Status' => 'Failed',
+                'success'   => false,
                 'Message' => 'Data tidak ditemukan'
             ],404);
         }
@@ -94,8 +113,9 @@ class KalenderAkademikController extends Controller
         $kalakademik->tgl_selesai = $request->tgl_selesai;
         $kalakademik->acara = $request->acara;
         $kalakademik->save();
+
         return response()->json([
-            'Status' => 'Success',
+            'success'   => true,
             'Message' => 'Data berhasil diupdate'
         ],201);
 
@@ -111,9 +131,10 @@ class KalenderAkademikController extends Controller
     {
 
         $kalakademik = KalenderAkademik::find($id);
-        if(!$kalakademik){
+
+         if(!$kalakademik){
             return response()->json([
-                'Status' => 'Failed',
+                'success'   => false,
                 'Message' => 'Data tidak ditemukan'
             ],404);
         }
@@ -121,7 +142,7 @@ class KalenderAkademikController extends Controller
         $kalakademik->delete();
 
         return response()->json([
-            'Status' => 'Success',
+            'success'   => true,
             'Message' => 'Data berhasil dihapus'
         ],201);
 

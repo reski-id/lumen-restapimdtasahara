@@ -15,7 +15,19 @@ class KelasController extends Controller
     public function index()
     {
         $kelas = Kelas::all();
-        return response()->json($kelas);
+
+        if ($kelas) {
+            return response()->json([
+                'success'   => true,
+                'message'   => 'Kelas Siswa',
+                'data'      => $kelas
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Ddta Tidak Ditemukan!',
+            ], 404);
+        }
     }
 
 
@@ -38,10 +50,13 @@ class KelasController extends Controller
         $kelas->nama_kelas = $request->nama_kelas;
 
         $kelas->save();
-        return response()->json([
-            'Status' => 'Success',
-            'Message' => 'Data berhasil disimpan'
+
+         return response()->json([
+            'success' => true,
+            'Message' => 'Data berhasil diupdate',
+            'data'    => $kelas,
         ],201);
+
     }
 
     /**
@@ -53,14 +68,19 @@ class KelasController extends Controller
     public function show($id)
     {
         $kelas = Kelas::find($id);
-        if(!$kelas){
-            return response()->json([
-                'Status' => 'Failed',
-                'Message' => 'Data tidak ditemukan'
-            ],404);
-        }
 
-        return response()->json($kelas);
+        if ($kelas) {
+            return response()->json([
+                'success'   => true,
+                'message'   => 'Kelas Siswa',
+                'data'      => $kelas
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Ddta Tidak Ditemukan!',
+            ], 404);
+        }
 
     }
 
@@ -74,9 +94,10 @@ class KelasController extends Controller
     public function update(Request $request, $id)
     {
         $kelas = Kelas::find($id);
+
         if(!$kelas){
             return response()->json([
-                'Status' => 'Failed',
+                'success' => false,
                 'Message' => 'Data tidak ditemukan'
             ],404);
         }
@@ -86,8 +107,9 @@ class KelasController extends Controller
 
         $kelas->save();
         return response()->json([
-            'Status' => 'Success',
-            'Message' => 'Data berhasil diupdate'
+            'success' => true,
+            'Message' => 'Data berhasil diupdate',
+            'data'    => $kelas,
         ],201);
 
 
@@ -106,7 +128,7 @@ class KelasController extends Controller
         $kelas = Kelas::find($id);
         if(!$kelas){
             return response()->json([
-                'Status' => 'Failed',
+                'success' => false,
                 'Message' => 'Data tidak ditemukan'
             ],404);
         }
@@ -114,7 +136,7 @@ class KelasController extends Controller
         $kelas->delete();
 
         return response()->json([
-            'Status' => 'Success',
+            'success' => true,
             'Message' => 'Data berhasil dihapus'
         ],201);
 

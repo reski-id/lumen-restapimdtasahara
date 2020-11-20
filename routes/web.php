@@ -152,3 +152,5 @@ $router->post('/umasuk','UangmasukController@store');
 $router->put('/umasuk/{id}','UangmasukController@update');
 $router->delete('/umasuk/{id}','UangmasukController@destroy');
 
+$router->post('/register','UserController@register');
+$router->post('/login','UserController@login');

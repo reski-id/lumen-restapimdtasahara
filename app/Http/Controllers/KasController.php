@@ -15,7 +15,19 @@ class KasController extends Controller
     public function index()
     {
         $kas = Kas::all();
-        return response()->json($kas);
+        
+        if ($kas) {
+            return response()->json([
+                'success'   => true,
+                'message'   => 'Absen Siswa',
+                'data'      => $kas
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data Tidak Ditemukan!',
+            ], 404);
+        }
     }
 
 
@@ -43,9 +55,11 @@ class KasController extends Controller
         $kas->jenis = $request->jenis;
 
         $kas->save();
+
         return response()->json([
-            'Status' => 'Success',
-            'Message' => 'Data berhasil disimpan'
+            'success' => true,
+            'Message' => 'Data berhasil diupdate',
+            'data'    => $kas,
         ],201);
     }
 
@@ -58,14 +72,19 @@ class KasController extends Controller
     public function show($id)
     {
         $kas = Kas::find($id);
-        if(!$kas){
-            return response()->json([
-                'Status' => 'Failed',
-                'Message' => 'Data tidak ditemukan'
-            ],404);
-        }
 
-        return response()->json($kas);
+        if ($kas) {
+            return response()->json([
+                'success' => true,
+                'message'   => 'Kas Siswa',
+                'data'      => $kas
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data Tidak Ditemukan!',
+            ], 404);
+        }
 
     }
 
@@ -79,26 +98,25 @@ class KasController extends Controller
     public function update(Request $request, $id)
     {
         $kas = Kas::find($id);
+
         if(!$kas){
             return response()->json([
-                'Status' => 'Failed',
+                'success' => false,
                 'Message' => 'Data tidak ditemukan'
             ],404);
         }
-
         $kas->keterangan = $request->keterangan;
         $kas->tgl = $request->tgl;
         $kas->jumlah = $request->jumlah;
         $kas->jenis = $request->jenis;
 
         $kas->save();
+
         return response()->json([
-            'Status' => 'Success',
-            'Message' => 'Data berhasil diupdate'
+            'success' => true,
+            'Message' => 'Data berhasil diupdate',
+            'data'    => $kas,
         ],201);
-
-
-
     }
 
     /**
@@ -113,7 +131,7 @@ class KasController extends Controller
         $kas = Kas::find($id);
         if(!$kas){
             return response()->json([
-                'Status' => 'Failed',
+                'success' => false,
                 'Message' => 'Data tidak ditemukan'
             ],404);
         }
@@ -121,9 +139,8 @@ class KasController extends Controller
         $kas->delete();
 
         return response()->json([
-            'Status' => 'Success',
+            'success' => true,
             'Message' => 'Data berhasil dihapus'
         ],201);
-
-    }
+}
 }

@@ -16,7 +16,19 @@ class GuruController extends Controller
     public function index()
     {
         $Guru = Guru::all();
-        return response()->json($Guru);
+
+        if ($Guru) {
+            return response()->json([
+                'success'   => true,
+                'message'   => 'Data Guru',
+                'data'      => $Guru
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data Tidak Ditemukan!',
+            ], 404);
+        }
     }
 
 
@@ -51,9 +63,11 @@ class GuruController extends Controller
         $Guru->NoHp = $request->NoHp;
 
         $Guru->save();
+        
         return response()->json([
-            'Status' => 'Success',
-            'Message' => 'Data berhasil disimpan'
+            'success'   => true,
+            'message'   => 'Data Guru',
+            'data'      => $Guru
         ],201);
     }
 
@@ -66,14 +80,19 @@ class GuruController extends Controller
     public function show($id)
     {
         $Guru = Guru::find($id);
-        if(!$Guru){
-            return response()->json([
-                'Status' => 'Failed',
-                'Message' => 'Data tidak ditemukan'
-            ],404);
-        }
 
-        return response()->json($Guru);
+        if ($Guru) {
+            return response()->json([
+                'success'   => true,
+                'message'   => 'Data Guru',
+                'data'      => $Guru
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data Tidak Ditemukan!',
+            ], 404);
+        }
 
     }
 
@@ -98,9 +117,10 @@ class GuruController extends Controller
         ]);
 
         $Guru = Guru::find($id);
+
         if(!$Guru){
             return response()->json([
-                'Status' => 'Failed',
+                'success'   => false,
                 'Message' => 'Data tidak ditemukan'
             ],404);
         }
@@ -115,8 +135,9 @@ class GuruController extends Controller
         $Guru->NoHp = $request->NoHp;
 
         $Guru->save();
-        return response()->json([
-            'Status' => 'Success',
+
+         return response()->json([
+            'success'   => true,
             'Message' => 'Data berhasil diupdate'
         ],201);
 
@@ -134,9 +155,10 @@ class GuruController extends Controller
     {
 
         $Guru = Guru::find($id);
+
         if(!$Guru){
             return response()->json([
-                'Status' => 'Failed',
+                'success'   => false,
                 'Message' => 'Data tidak ditemukan'
             ],404);
         }
@@ -144,7 +166,7 @@ class GuruController extends Controller
         $Guru->delete();
 
         return response()->json([
-            'Status' => 'Success',
+            'success'   => true,
             'Message' => 'Data berhasil dihapus'
         ],201);
 

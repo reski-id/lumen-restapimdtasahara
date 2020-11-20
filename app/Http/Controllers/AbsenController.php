@@ -27,7 +27,6 @@ class AbsenController extends Controller
                 'message' => 'Post Tidak Ditemukan!',
             ], 404);
         }
-        // return response()->json($absen);
     }
 
 
@@ -55,13 +54,13 @@ class AbsenController extends Controller
         if ($absen) {
             return response()->json([
                 'success' => true,
-                'message' => 'Post Berhasil disimpan!',
+                'message' => 'Data Berhasil disimpan!',
                 'data' => $absen
             ], 201);
         } else {
             return response()->json([
                 'success' => false,
-                'message' => 'Post Gagal disimpan!',
+                'message' => 'Data Gagal disimpan!',
             ], 400);
         }
     }

@@ -16,7 +16,18 @@ class AbsensubuhController extends Controller
     public function index()
     {
         $Absensubuh = Absensubuh::all();
-        return response()->json($Absensubuh);
+         if ($Absensubuh) {
+            return response()->json([
+                'success'   => true,
+                'message'   => 'Absensubuh Siswa',
+                'data'      => $Absensubuh
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Post Tidak Ditemukan!',
+            ], 404);
+        }
     }
 
 
@@ -42,8 +53,9 @@ class AbsensubuhController extends Controller
 
         $Absensubuh->save();
         return response()->json([
-            'Status' => 'Success',
-            'Message' => 'Data berhasil disimpan'
+            'success' => false,
+            'Message' => 'Data berhasil disimpan',
+            'data'      => $Absensubuh,
         ],201);
     }
 
@@ -56,15 +68,20 @@ class AbsensubuhController extends Controller
      */
     public function show($id)
     {
-        $Absensubuh = Absensubuh::find($id);
-        if(!$Absensubuh){
+        $Absensubuh = Absensubuh::find($id); 
+        
+         if ($Absensubuh) {
             return response()->json([
-                'Status' => 'Failed',
-                'Message' => 'Data tidak ditemukan'
-            ],404);
+                'success' => true,
+                'message'   => 'Absen subuh Siswa',
+                'data'      => $Absensubuh
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data Tidak Ditemukan!',
+            ], 404);
         }
-
-        return response()->json($Absensubuh);
 
     }
 
@@ -85,9 +102,10 @@ class AbsensubuhController extends Controller
         ]);
 
         $Absensubuh = Absensubuh::find($id);
+
         if(!$Absensubuh){
             return response()->json([
-                'Status' => 'Failed',
+                'success' => false,
                 'Message' => 'Data tidak ditemukan'
             ],404);
         }
@@ -97,12 +115,12 @@ class AbsensubuhController extends Controller
         $Absensubuh->KetAbsensubuh = $request->KetAbsensubuh;
 
         $Absensubuh->save();
+
         return response()->json([
-            'Status' => 'Success',
-            'Message' => 'Data berhasil diupdate'
+            'success' => true,
+            'Message' => 'Data berhasil diupdate',
+            'data'    => $Absensubuh,
         ],201);
-
-
 
     }
 
@@ -118,7 +136,7 @@ class AbsensubuhController extends Controller
         $Absensubuh = Absensubuh::find($id);
         if(!$Absensubuh){
             return response()->json([
-                'Status' => 'Failed',
+                'success' => false,
                 'Message' => 'Data tidak ditemukan'
             ],404);
         }
@@ -126,7 +144,7 @@ class AbsensubuhController extends Controller
         $Absensubuh->delete();
 
         return response()->json([
-            'Status' => 'Success',
+            'success' => true,
             'Message' => 'Data berhasil dihapus'
         ],201);
 

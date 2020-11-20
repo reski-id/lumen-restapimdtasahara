@@ -16,7 +16,19 @@ class AcaraController extends Controller
     public function index()
     {
         $Acara = Acara::all();
-        return response()->json($Acara);
+        if ($Acara) {
+            return response()->json([
+                'success'   => true,
+                'message'   => 'Acara Siswa',
+                'data'      => $Acara
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data Tidak Ditemukan!',
+            ], 404);
+        }
+        // return response()->json($Acara);
     }
 
 
@@ -42,9 +54,11 @@ class AcaraController extends Controller
         $Acara->lokasi = $request->lokasi;
 
         $Acara->save();
+
         return response()->json([
-            'Status' => 'Success',
-            'Message' => 'Data berhasil disimpan'
+            'success'   => true,
+            'message'   => 'Acara Siswa',
+            'data'      => $Acara
         ],201);
     }
 
@@ -59,12 +73,16 @@ class AcaraController extends Controller
         $Acara = Acara::find($id);
         if(!$Acara){
             return response()->json([
-                'Status' => 'Failed',
-                'Message' => 'Data tidak ditemukan'
+                'success' => false,
+                'message' => 'Data Tidak Ditemukan!',
             ],404);
         }
 
-        return response()->json($Acara);
+        return response()->json([
+            'success'   => true,
+            'message'   => 'Acara Siswa',
+            'data'      => $Acara
+        ],201);
 
     }
 
@@ -87,7 +105,7 @@ class AcaraController extends Controller
         $Acara = Acara::find($id);
         if(!$Acara){
             return response()->json([
-                'Status' => 'Failed',
+                'success'   => false,
                 'Message' => 'Data tidak ditemukan'
             ],404);
         }
@@ -97,8 +115,9 @@ class AcaraController extends Controller
         $Acara->lokasi = $request->lokasi;
         $Acara->save();
         return response()->json([
-            'Status' => 'Success',
-            'Message' => 'Data berhasil diupdate'
+            'success'   => true,
+            'Message' => 'Data berhasil diupdate',
+            'data'    => $Acara
         ],201);
 
 
@@ -115,9 +134,10 @@ class AcaraController extends Controller
     {
 
         $Acara = Acara::find($id);
+        
         if(!$Acara){
             return response()->json([
-                'Status' => 'Failed',
+                'success'   => false,
                 'Message' => 'Data tidak ditemukan'
             ],404);
         }
@@ -125,7 +145,7 @@ class AcaraController extends Controller
         $Acara->delete();
 
         return response()->json([
-            'Status' => 'Success',
+            'success'   => true,
             'Message' => 'Data berhasil dihapus'
         ],201);
 
