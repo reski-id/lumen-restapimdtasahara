@@ -20,7 +20,7 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = $haspassword;
-        $user->remember_token = "Belum Ada";
+        $user->remember_token = "Token will generate shortly after you login";
         $user->save();
         return response()->json([
             "Success" => true,

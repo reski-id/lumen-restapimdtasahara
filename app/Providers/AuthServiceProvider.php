@@ -1,8 +1,6 @@
 <?php
 
 namespace App\Providers;
-
-use App\Absen;
 use App\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
