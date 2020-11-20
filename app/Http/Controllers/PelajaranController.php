@@ -7,6 +7,13 @@ use Illuminate\Http\Request;
 
 class PelajaranController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        //token
+    }
+    
+    
     /**
      * Display a listing of the resource.
      *

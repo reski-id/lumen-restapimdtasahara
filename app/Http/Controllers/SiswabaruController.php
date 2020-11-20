@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class SiswabaruController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        //token
+    }
+    
     /**
      * Display a listing of the resource.
      *

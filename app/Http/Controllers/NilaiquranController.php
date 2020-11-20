@@ -8,6 +8,12 @@ use League\CommonMark\Inline\Element\AbstractWebResource;
 
 class NilaiquranController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        //token
+    }
+    
     /**
      * Display a listing of the resource.
      *

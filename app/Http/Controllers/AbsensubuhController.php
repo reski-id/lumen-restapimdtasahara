@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class AbsensubuhController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        //token
+    }
     /**
      * Display a listing of the resource.
      *
