@@ -34,9 +34,6 @@ class AuthServiceProvider extends ServiceProvider
             if($token){
                 return User::where('remember_token', $token)->first();
             }
-            // if ($request->input('api_token')) {
-            //     return User::where('api_token', $request->input('api_token'))->first();
-            // }
         });
     }
 }
